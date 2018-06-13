@@ -22,11 +22,7 @@ X_test = scaler.fit_transform(df_test.drop(['Close'],axis=1).as_matrix())
 y_test = scaler.fit_transform(df_test['Close'].as_matrix())
 
 
-"""
-Above written function for denormalizatio of data after normalizing
-this function will give original scale of values.
-In normalization we step down the value of data in dataset.
-"""
+
 
 def neural_net_model(X_data,input_dim):
     W_1 = tf.Variable(tf.random_uniform([input_dim,10]))
