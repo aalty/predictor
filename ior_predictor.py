@@ -42,11 +42,7 @@ def neural_net_model(X_data,input_dim):
     # O/p layer multiplying and adding bias then activation function
     # notice output layer has one node only since performing #regression
     return output
-"""
-neural_net_model is function applying 2 hidden layer feed forward neural net.
-Weights and biases are abberviated as W_1,W_2 and b_1, b_2 
-These are variables with will be updated during training.
-"""
+
 xs = tf.placeholder("float")
 ys = tf.placeholder("float")
 output = neural_net_model(xs,3)
