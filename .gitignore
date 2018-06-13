@@ -1,9 +1,9 @@
 .DS_Store
 ._.DS_Store
 .bash_history
-.cache
-.config
-.local
-.nv
+.cache/
+.config/
+.local/
+.nv/
 .viminfo
 examples.desktop

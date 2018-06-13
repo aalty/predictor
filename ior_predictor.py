@@ -21,12 +21,7 @@ y_train = scaler.fit_transform(df_train['Close'].as_matrix())
 X_test = scaler.fit_transform(df_test.drop(['Close'],axis=1).as_matrix())
 y_test = scaler.fit_transform(df_test['Close'].as_matrix())
 
-def denormalize(df,norm_data):
-    df = df['Close'].values.reshape(-1,1)
-    norm_data = norm_data.reshape(-1,1)
-    scl = MinMaxScaler()
-    a = scl.fit_transform(df)
-    new = scl.inverse_transform(norm_data)
+
 """
 Above written function for denormalizatio of data after normalizing
 this function will give original scale of values.
