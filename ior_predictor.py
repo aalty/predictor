@@ -1,26 +1,34 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
+#import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
 import tensorflow as tf
 # We have imported all dependencied
-df = pd.read_csv('data.csv') # read data set using pandas
+df = pd.read_csv('ior.csv', names=["Arg1","Arg2","Time","Node","Avg.IO","Max.IO"]) # read data set using pandas
 print(df.info()) # Overview of dataset
-df = df.drop(['Date'],axis=1) # Drop Date feature
+df = df.drop(["Node","Avg.IO","Max.IO"],axis=1) # Drop Date feature
 df = df.dropna(inplace=False)  # Remove all nan entries.
 
-df = df.drop(['Adj Close','Volume'],axis=1) # Drop Adj close and volume feature
-df_train = df[:1059]    # 60% training data and 40% testing data
-df_test = df[1059:]
+#with pd.option_context('display.max_rows', None, 'display.max_columns', 3):
+#    print(df)
+
+#df = df.drop(['Adj Close','Volume'],axis=1) # Drop Adj close and volume feature
+row_num = int(round(df.shape[0] * 0.8))
+print("row_num ", row_num)
+df_train = df[:row_num]    # 60% training data and 40% testing data
+df_test = df[row_num:]
 scaler = MinMaxScaler() # For normalizing dataset
 # We want to predict Close value of stock 
-X_train = scaler.fit_transform(df_train.drop(['Close'],axis=1).as_matrix())
-y_train = scaler.fit_transform(df_train['Close'].as_matrix())
+X_train = scaler.fit_transform(df_train.drop(["Time"],axis=1).values)
+df_train_time = df_train["Time"]
+y_train = scaler.fit_transform(df_train_time[:,None])
 # y is output and x is features.
-X_test = scaler.fit_transform(df_test.drop(['Close'],axis=1).as_matrix())
-y_test = scaler.fit_transform(df_test['Close'].as_matrix())
+X_test = scaler.fit_transform(df_test.drop(["Time"],axis=1).values)
+df_test_time = df_test["Time"]
+y_test = scaler.fit_transform(df_test_time[:,None])
 
+#print(y_test)
 
 
 
@@ -48,9 +56,10 @@ ys = tf.placeholder("float")
 output = neural_net_model(xs,3)
 cost = tf.reduce_mean(tf.square(output-ys))
 # our mean squared error cost function
-train = tf.train.GradientDescentOptimizer(0.001).minimize(cost)
+train = tf.train.AdamOptimizer(0.001).minimize(cost)
 # Gradinent Descent optimiztion just discussed above for updating weights and biases
 
+'''
 with tf.Session() as sess:
     # Initiate session and initialize all vaiables
     sess.run(tf.global_variables_initializer())
@@ -79,3 +88,4 @@ with tf.Session() as sess:
     if input('Save model ? [Y/N]') == 'Y':
         saver.save(sess,'yahoo_dataset.ckpt')
         print('Model Saved')
+'''
