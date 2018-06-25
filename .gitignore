@@ -1,5 +1,5 @@
 .DS_Store
-._.DS_Store
+._*
 .bash_history
 .cache/
 .config/
@@ -8,3 +8,4 @@
 .viminfo
 examples.desktop
 .ssh/
+*.csv

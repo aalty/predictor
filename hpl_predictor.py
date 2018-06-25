@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 import tensorflow as tf
 # We have imported all dependencied
-df = pd.read_csv('ior.csv', names=["Arg1","Arg2","Time","Node","Avg.IO","Max.IO"]) # read data set using pandas
+df = pd.read_csv('hpl.csv', names=["Arg1","Arg2","Time","Node","Avg.CPU","Max.CPU","Avg.Mem","Max.Mem"]) # read data set using pandas
 #print(df.info()) # Overview of dataset
-df = df.drop(["Node","Avg.IO","Max.IO"],axis=1) # Drop Date feature
+df = df.drop(["Node","Avg.CPU","Max.CPU","Avg.Mem","Max.Mem"],axis=1) # Drop Date feature
 df = df.dropna(inplace=False)  # Remove all nan entries.
 
 #with pd.option_context('display.max_rows', None, 'display.max_columns', 3):
